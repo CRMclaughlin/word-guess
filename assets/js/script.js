@@ -1,17 +1,34 @@
 var startBtn = document.querySelector(".start-button")
 var wordBlanksEl = document.querySelector(".word-blanks")
 
+var validChars = "abcdefjhijklmopqrstuvwxyz"
 var words = ["javascript", "variable", "function", "object", "python", "localstorage", "timeout", "interval" ]
 var word 
+var guessedCharacters = []
+var score = 0
 
+function checkWord()
 
-function renderCharacters(){
+function handleKeydown(event){
+    console.log(event.key)
+    if (validChars.includes(event.key))
+    // 
+    guessedCharacters.push(event.key)
+    renderCharacters()
+}
+
+function renderCharacters() {
     var str = ""
     for (var i = 0; i < word.length; i++){
-    str += "_ "
+        var letter = word[i]
+        if(guessedCharacters.includes(letter)) {
+            str += letter = ""
+        }else {
+            str += "_ "
     }
+}wordBlanksEl.textContent = str.trim()
 }
-wordBlanksEl.textContent = str.trim()
+
 
 
 
@@ -23,10 +40,4 @@ function startRound(){
 
 startBtn.addEventListener("click", startRound)
 
-
-
-
-
-//add eventListener to start button "click"
-//get random words from the word array
-// reset the word-blanks, an _ for each letter of the new word
+document.addEventListener("keydown", handleKeydown)
